@@ -12,15 +12,16 @@ public class Server {
             byte[] sendBuffer = new byte[1024];
             byte[] receiveBuffer = new byte[1024];
             System.out.println("Server started, Waiting for client to connect...");
+            
             while(true) {
                 DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
                 socket.receive(receivePacket);
-                String sentence = new String(receivePacket.getData());
+                
+                String feetString = new String(receivePacket.getData());
                 InetAddress ip = receivePacket.getAddress();
-                System.out.println("Received from " + ip + ": " + sentence);
                 int port = receivePacket.getPort();
 
-                double feet = Double.parseDouble(sentence);
+                double feet = Double.parseDouble(feetString);
                 double metres = feet * 0.3048;
 
                 System.out.println("Sending result = " + metres + " metres to client");
